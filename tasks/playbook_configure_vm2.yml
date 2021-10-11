@@ -1,0 +1,20 @@
+---
+
+# This playbook will configure server.properties file in VM2
+# and copy Consumer code to VM2
+# See https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html
+- hosts: MyChameleonVMs  # change to the appropriate alias
+  remote_user:  cc   # change to the appropriate user name on the cloud
+  collections:
+    - openstack.cloud
+
+  # Configure server.properties
+  tasks:
+  - name: Configure server.properties file 
+
+
+  - name: Copy a file from local to remote
+    copy:
+        src: ./consumer.py
+        dest: /home/cc/    # destination directory into which this file will get copied.
+...
