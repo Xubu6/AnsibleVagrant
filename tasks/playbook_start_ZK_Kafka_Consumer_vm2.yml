@@ -1,0 +1,27 @@
+---
+#
+# Starts Zookeeper and Kafka on VM2
+- hosts: MyVM2
+  remote_user: cc
+  become_user: yes
+  collections:
+    - openstack.cloud
+  
+  tasks:
+    - name: Copy consumer.py
+    copy:
+        src: ./consumer.py
+        dest: /home/cc/    # destination directory into which this file will get copied.
+
+    - name: clear logs
+      command: cd kafka_2.12-2.8.0/ && rm -fr /tmp/zookeeper/ /tmp/kafka*
+  
+    - name: start Zookeeper
+      command: cd kafka_2.12-2.8.0/ && ./bin/zookeeeper-server-start.sh config/zookeeper.properties
+
+    - name: start Kafka broker
+      command: cd kafka_2.12-2.8.0/ && ./bin/kafka-server-start.sh config/server.properties
+
+    - name: run consumer code
+      command: python3 ~/consumer.py
+...

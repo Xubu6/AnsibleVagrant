@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   # config.vm.box = "base"
-  config.vm.box = "ubuntu/bionic64"   # Ubuntu 18.04 (use focal64 for 20.04)
+  config.vm.box = "ubuntu/focal64"   # Ubuntu 18.04 (use focal64 for 20.04)
    
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -97,12 +97,15 @@ Vagrant.configure("2") do |config|
   # Note that I am on Windows m/c and so have used the Windows path to
   # the source. I created an equivalent directory structure on my Windows
   # file system as Linux with .ssh, etc directories.
-  config.vm.provision "file", source: "Users/alanxu/.ssh/team16-Logan_Alan_Elle_VM2.pem", destination: "~/.ssh/"
+  config.vm.provision "file", source: "~/.ssh/team16_key.pem", destination: "~/.ssh/"
 
   # let's also copy our ansible.cfg, MyInventory and cloud.yaml file
   config.vm.provision "file", source: "./.ansible.cfg", destination: "~/.ansible.cfg"
   config.vm.provision "file", source: "./MyInventory", destination: "~/.ansible/MyInventory"
   config.vm.provision "file", source: "./clouds.yaml", destination: "~/.config/openstack/clouds.yaml"
+  config.vm.provision "file", source: "./consumer.py", destination: "~/consumer.py"
+  config.vm.provision "file", source: "./server.properties", destination: "~/server.properties"
+
   
   # make sure the permissions on the  pem file are not too open.
   # Note, here I show you using inline and privileged: false so the inline
@@ -111,7 +114,7 @@ Vagrant.configure("2") do |config|
   # a block, and then use the block name. 
   # Change file name as appropriate. Replace this with your pem file.
   $script = <<-SCRIPT
-     chmod go-rwx ~/.ssh/team16-Logan_Alan_Elle_VM2.pem
+     chmod go-rwx ~/.ssh/team16_key.pem
   SCRIPT
   config.vm.provision "shell", inline: $script, privileged: false
 

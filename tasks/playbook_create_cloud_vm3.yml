@@ -1,0 +1,16 @@
+---
+# Creates a cloud VM3 on Chameleon Cloud
+- name: "Create VM3"
+  openstack.cloud.server:
+      state: present
+      name: "team16_ansible_VM3"
+      image: 2067e3e4-057b-4fb9-a7f9-e8688cd5012b
+      key_name: team16-Logan_Alan_Elle_VM2
+      timeout: 200
+      flavor: 2
+      security_groups: ["ENABLE_KAFKA_COUCHDB", "default", "ENABLE_SSH"]
+      floating_ips: 
+        - 129.114.24.223
+      nics:
+        - net-name: CH-819381-net
+...
