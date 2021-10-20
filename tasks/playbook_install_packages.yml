@@ -1,42 +1,40 @@
 ---
 # Playbook for installing packages on VMs
-- name: "Install Packages"
-  hosts: MyChameleonVMs      # specified in the MyInventory file
-  collections:
-    - openstack.cloud
-  remote_user:  cc           # note that the user is ubuntu for 
-                             # vagrant-created VM else use the
-                             # appropriate user name
+- name: Update apt
+  command: apt-get update
 
-  gather_facts: yes          # We ask Ansible to collect all facts
-  become_user: yes            # No need for sudo as we are not installing anything
+- name: Install a list of packages
+  apt:
+    pkg:
+    - default-jdk
+    - git
+    - python3-pip
 
-  tasks:
-    - name: Install a list of packages
-      apt:
-        pkg:
-        - default-jdk
-        - kafka-python
-        - python3-pip
-        - pip3
-        - couchdb-python
+- name: Download python packages
+  command: python3 -m pip install --ignore-installed --upgrade kafka-python couchdb
 
-    - name: Download kafka
-      get_url:
-        url: https://archive.apache.org/dist/kafka/2.8.0/kafka_2.12-2.8.0.tgz
-        dest: /etc/foo.conf
+- name: Download kafka
+  get_url:
+    url: https://archive.apache.org/dist/kafka/2.8.0/kafka_2.12-2.8.0.tgz
+    dest: /home/cc/
 
-    - name: Unzip kafka
-      command: tar -xzf kafka_2.12-2.8.0.tgz
+- name: Unzip kafka
+  command: tar -xzf kafka_2.12-2.8.0.tgz
 
-    - name: replace server properties file
-      command: cd kafka_2.12-2.8.0/config/ && rm server.properties
+- name: Copy file
+  copy:
+    src: ./server.properties  # here you can give absolute path also.
+    dest: /home/cc/kafka_2.12-2.8.0/config/    # destination directory into which this file will get copied.
 
-    - name: Copy file
-      copy:
-        src: ./server.properties  # here you can give absolute path also.
-        dest: /home/cc/kafka_2.12-2.8.0/config/    # destination directory into which this file will get copied.
+- name: ufw1
+  command: ufw limit 9092
 
-    - name: ufw
-      command: ufw limit 9092 && ufw limit 9092/tcp && ufw limit 2181 && ufw limit 2181/tcp
+- name: ufw2
+  command: ufw limit 9092/tcp
+
+- name: ufw3
+  command: ufw limit 2181
+
+- name: ufw4
+  command: ufw limit 2181/tcp
 ...

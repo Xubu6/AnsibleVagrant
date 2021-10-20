@@ -21,13 +21,18 @@
   remote_user: vagrant           # note that the user is ubuntu for 
                              # vagrant-created VM else use the
                              # appropriate user name
+  strategy: debug
 
   gather_facts: yes          # We ask Ansible to collect all facts
   become_user: no            # No need for sudo as we are not installing anything
+  collections:               # import the plugin
+  - openstack.cloud
 
   tasks:    # the task to be performed (here I am showing the effect of include_)
-  - include_tasks: tasks/playbook_create_cloud_vm2.yml
-  - include_tasks: tasks/playbook_create_cloud_vm3.yml
+  # ignoring because VMs already created
+
+  # - include_tasks: tasks/playbook_create_cloud_vm2.yml
+  # - include_tasks: tasks/playbook_create_cloud_vm3.yml
 
 #####################################################
 
@@ -35,7 +40,7 @@
   hosts: MyChameleonVMs       # specified in the MyInventory file
   remote_user:  cc       # change this user to what it is for the cloud
   strategy: debug        # start a debugger on error
-  become_user: yes               # run as sudo
+  become: yes               # run as sudo
   collections:               # import the plugin
   - openstack.cloud
 
@@ -46,6 +51,33 @@
   tasks:
   - include_tasks: tasks/playbook_install_packages.yml
   - include_tasks: tasks/playbook_start_ZK_Kafka_Consumer_vm2.yml
+  - include_tasks: tasks/playbook_start_Kafka_vm3.yml
+
+#####################################################
+
+- name: "Play 3: Start Kafka Broker and Zookeeper on VM2"
+  hosts: MyVM2       # specified in the MyInventory file
+  remote_user:  cc       # change this user to what it is for the cloud
+  strategy: debug        # start a debugger on error
+  become: yes               # run as sudo
+  collections:               # import the plugin
+  - openstack.cloud
+
+
+  tasks:
+  - include_tasks: tasks/playbook_start_ZK_Kafka_Consumer_vm2.yml
+
+######################################################
+
+- name: "Play 4: Start Kafka Broker on VM3"
+  hosts: MyVM3      # specified in the MyInventory file
+  remote_user:  cc       # change this user to what it is for the cloud
+  strategy: debug        # start a debugger on error
+  become: yes               # run as sudo
+  collections:               # import the plugin
+  - openstack.cloud
+
+  tasks:
   - include_tasks: tasks/playbook_start_Kafka_vm3.yml
 ...
 

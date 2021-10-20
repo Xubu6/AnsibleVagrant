@@ -12,7 +12,7 @@
 clouds:
   openstack:
     auth:
-      auth_url: https://kvm.tacc.chameleoncloud.org:5000
+      auth_url: https://kvm.tacc.chameleoncloud.org:5000/v3
       application_credential_id: "485cc7eaff3346acaafe342b80abf6c7"
       application_credential_secret: "jG991Yp0b4nuT_kCIilu45TbPp7ElYb_jW5OEBhbjihJzTHk5kN_fiPc3ETGQLCFyxI2GOMYQFWJfLwvT7M-tA"
       # identity_provider: chameleon

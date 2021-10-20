@@ -18,5 +18,3 @@ apt-get install -y ansible
 python3 -m pip install --ignore-installed --upgrade setuptools wheel
 pip3 install --upgrade openstacksdk
 ansible-galaxy collection install openstack.cloud
-
-cd .ssh/ && ls -a

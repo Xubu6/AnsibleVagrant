@@ -1,16 +1,9 @@
 ---
 #
 # Starts Kafka on VM3
-- name: "Start Kafka on VM3"
-  hosts: MyVM3
-  remote_user:  cc   # change the user to whatever is the user on the cloud VM
-  collections:   # this is new starting with Ansible 2.9 (akin to importing package)
-    - openstack.cloud
-  
-  tasks:
-    - name: clear logs
-      command: cd kafka_2.12-2.8.0/ && rm -fr /tmp/zookeeper/ /tmp/kafka*
+- name: clear logs
+  command: cd kafka_2.12-2.8.0/ && rm -fr /tmp/zookeeper/ /tmp/kafka*
 
-    - name: start Kafka broker
-      command: cd kafka_2.12-2.8.0/ && ./bin/kafka-server-start.sh config/server.properties
+- name: start Kafka broker
+  command: cd kafka_2.12-2.8.0/ && ./bin/kafka-server-start.sh config/server.properties
 ...

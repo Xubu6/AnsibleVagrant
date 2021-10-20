@@ -97,9 +97,7 @@ Vagrant.configure("2") do |config|
   # Note that I am on Windows m/c and so have used the Windows path to
   # the source. I created an equivalent directory structure on my Windows
   # file system as Linux with .ssh, etc directories.
-  config.vm.provision "file", source: "~/.ssh/team16_key.pem", destination: "~/.ssh/"
-
-  # let's also copy our ansible.cfg, MyInventory and cloud.yaml file
+  config.vm.provision "file", source: "~/.ssh/team16.pem", destination: "~/.ssh/team16.pem"
   config.vm.provision "file", source: "./.ansible.cfg", destination: "~/.ansible.cfg"
   config.vm.provision "file", source: "./MyInventory", destination: "~/.ansible/MyInventory"
   config.vm.provision "file", source: "./clouds.yaml", destination: "~/.config/openstack/clouds.yaml"
@@ -114,7 +112,7 @@ Vagrant.configure("2") do |config|
   # a block, and then use the block name. 
   # Change file name as appropriate. Replace this with your pem file.
   $script = <<-SCRIPT
-     chmod go-rwx ~/.ssh/team16_key.pem
+     chmod go-rwx ~/.ssh/team16.pem
   SCRIPT
   config.vm.provision "shell", inline: $script, privileged: false
 
