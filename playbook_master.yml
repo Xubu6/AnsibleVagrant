@@ -36,7 +36,7 @@
 
 #####################################################
 
-- name: "Play 2: Master file performing several actions on cloud VMs"
+- name: "Play 2: Install Packages and other necessities on cloud VMs"
   hosts: MyChameleonVMs       # specified in the MyInventory file
   remote_user:  cc       # change this user to what it is for the cloud
   strategy: debug        # start a debugger on error
@@ -50,8 +50,6 @@
   # tasks are in the playbooks defined in my tasks/ directory
   tasks:
   - include_tasks: tasks/playbook_install_packages.yml
-  - include_tasks: tasks/playbook_start_ZK_Kafka_Consumer_vm2.yml
-  - include_tasks: tasks/playbook_start_Kafka_vm3.yml
 
 #####################################################
 
