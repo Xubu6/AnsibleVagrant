@@ -21,11 +21,6 @@
 - name: Unzip kafka
   command: tar -xzf kafka_2.12-2.8.0.tgz
 
-- name: Copy file
-  copy:
-    src: ./server.properties  # here you can give absolute path also.
-    dest: /home/cc/kafka_2.12-2.8.0/config/    # destination directory into which this file will get copied.
-
 - name: ufw1
   command: ufw limit 9092
 
@@ -37,4 +32,10 @@
 
 - name: ufw4
   command: ufw limit 2181/tcp
+
+- name: ufw5
+  command: ufw limit 5984
+
+- name: ufw6
+  command: ufw limit 5984/tcp
 ...

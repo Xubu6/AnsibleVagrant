@@ -15,6 +15,9 @@
 - name: CouchDB Installation
   command: echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ ${VERSION_CODENAME} main" \ | tee /etc/apt/sources.list.d/couchdb.list >/dev/null
 
+- name: Update apt
+  command: apt-get update
+
 - name: Install CouchDB
   apt:
     pkg:

@@ -63,7 +63,7 @@
 
 
   tasks:
-  - include_tasks: tasks/playbook_start_ZK_Kafka_vm2.yml
+  # - include_tasks: tasks/playbook_start_ZK_Kafka_vm2.yml
 
 ######################################################
 
@@ -76,7 +76,7 @@
   - openstack.cloud
 
   tasks:
-  - include_tasks: tasks/playbook_start_Kafka_vm3.yml
+  # - include_tasks: tasks/playbook_start_Kafka_vm3.yml
 
 #####################################################
 
@@ -89,6 +89,6 @@
   - openstack.cloud
 
   tasks:
-  - include_tasks: tasks/playbook_couch_cloudb.yml
+  - include_tasks: tasks/playbook_cloud_couchdb.yml
 ...
 
