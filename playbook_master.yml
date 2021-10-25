@@ -63,7 +63,7 @@
 
 
   tasks:
-  - include_tasks: tasks/playbook_start_ZK_Kafka_Consumer_vm2.yml
+  - include_tasks: tasks/playbook_start_ZK_Kafka_vm2.yml
 
 ######################################################
 
@@ -77,5 +77,18 @@
 
   tasks:
   - include_tasks: tasks/playbook_start_Kafka_vm3.yml
+
+#####################################################
+
+- name: "Play 5: Install and Run CouchDB on VM2"
+  hosts: MyVM2       # specified in the MyInventory file
+  remote_user:  cc       # change this user to what it is for the cloud
+  strategy: debug        # start a debugger on error
+  become: yes               # run as sudo
+  collections:               # import the plugin
+  - openstack.cloud
+
+  tasks:
+  - include_tasks: tasks/playbook_couch_cloudb.yml
 ...
 
