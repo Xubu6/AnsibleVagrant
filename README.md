@@ -16,6 +16,8 @@ Below are screenshots of all of the completed tasks:
 
 ![Alt text](/Progress Screenshots/VM3_Ansible_Creation.png?raw=true "VM2 and VM3 Created")
 
+![Ansible](VM3_Ansible_Creation.png)
+
 ![Alt text](/Progress Screenshots/Package_Installations.png?raw=true "Install Necessary Packages")
 
 ![Alt text](/Progress Screenshots/Kafka_Download_VM2_VM3.png?raw=true "Kafka Installed on VM2 and VM3")
